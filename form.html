@@ -1,0 +1,260 @@
+<!doctype>
+<html>
+<head>
+<title>Create report</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="form_styles.css">
+	<script type="text/javascript" src="jspdf.min.js"></script>
+    <script type ="text/javascript" src = "https://code.jquery.com/jquery-3.3.1.min.js"> </script> 
+	
+	<script type="text/javascript">
+	var localstream;
+	
+	function openModal(){	
+	// Get the modal
+var modal = document.getElementById('myModal');
+
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+  modal.style.display = "block";
+
+  takePhotoAndLoc();
+  
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+vidOff();
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+}
+
+
+		function previewUpload(){
+		if(document.getElementById("pic1").src == ""){
+		var preview = document.getElementById('pic1');
+		}
+		else if(document.getElementById("pic2").src == "")
+		{
+		var preview = document.getElementById('pic2');
+		}
+		else{
+		var preview = document.getElementById('pic3');
+		}
+		
+		var image    = document.querySelector('input[type=file]').files[0];
+		var reader  = new FileReader();
+
+		reader.onload = function () {
+		preview.src = reader.result;
+		}
+
+		if (image) {
+			reader.readAsDataURL(image);
+		} else {
+		preview.src = "";
+		}
+		}
+		
+		function getLocation() {
+return new Promise((resolve,reject) => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                return resolve(position);
+            }, function(err) {
+                return reject(err);
+            });
+
+        } else {
+            return reject("Geolocation is not supported by this browser.");
+        }
+    })
+}
+
+function takePhotoAndLoc(){
+
+(async function()  {
+
+    const coords = await getLocation();
+
+    takePhoto(coords);
+
+})().then(() => {
+    console.log("done")
+}).catch((err) => {
+    console.error(err);
+})
+
+}
+function takePhoto(position){
+		// Grab elements, create settings, etc.
+		var video = document.getElementById('video');
+
+		// Get access to the camera!
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		// Not adding `{ audio: true }` since we only want video now
+		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+        //video.src = window.URL.createObjectURL(stream);
+        video.srcObject = stream;
+		localstream = stream;
+        video.play();
+		});
+		}
+		
+		// Elements for taking the snapshot
+		var canvas = document.getElementById('canvas');
+		var context = canvas.getContext('2d');
+		var video = document.getElementById('video');
+		var question = document.getElementById('question');
+		var snap = document.getElementById("snap");
+		
+		canvas.style.display ="block";
+		snap.style.display="block";
+		// Trigger photo take
+		snap.addEventListener("click", function() {
+		canvas.style.display = "block";	
+		context.drawImage(video, 0, 0, 500, 350);
+		context.strokeText(position.coords.latitude, 450, 320);
+		context.strokeText(position.coords.longitude, 450, 340);
+		question.style.display = "block";
+		});
+		
+		document.getElementById("yes").addEventListener("click", function(){
+		
+		var picURL = canvas.toDataURL();
+		
+		if(document.getElementById("pic1").src == ""){
+		document.getElementById("pic1").src = picURL;
+		}
+		else if(document.getElementById("pic2").src == "")
+		{
+		document.getElementById("pic2").src = picURL;
+		}
+		else if(document.getElementById("pic3").src == ""){
+		document.getElementById("pic3").src = picURL;
+		}
+		else {alert("You've reached the maximum number of pictures :(");
+		document.getElementById('myModal').style.display = "none";
+		}
+		
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		question.style.display = "none";
+		});
+		
+		document.getElementById('no').addEventListener("click", function(){
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		question.style.display = "none";
+		});
+		}
+		
+function vidOff() {
+var vid = document.getElementById('video');
+  vid.pause();
+  vid.src = "";
+  localstream.getTracks()[0].stop();
+}
+		
+		function generatePDF(){
+			var doc = new jsPDF();
+			var dest= document.getElementById('dest').value;
+			var fromDate = new Date();
+			fromDate = document.getElementById('from').value;
+			var untilDate = new Date();
+			untilDate = document.getElementById('until').value;
+			
+			if(untilDate > fromDate){
+			
+			doc.text(10,10,dest);
+			doc.text(10,20, fromDate);
+			doc.text(10,30,untilDate);
+			doc.text(10,40, document.getElementById('transport').value);
+			doc.text(10,50, document.getElementById('attraction').value);
+			doc.text(10,60, document.getElementById('food').value);
+			doc.text(10,70, document.getElementById('tipps').value);
+			doc.text(10,80, document.getElementById('story').value);
+			doc.text(10,90, document.getElementById('points').value);
+			doc.addImage(document.getElementById('pic1'), 'JPEG', 20,20);
+			
+			
+			var pdfName = dest + "_TravelReport";
+			doc.save(pdfName);
+			}
+			else{
+			alert("Please specify the dates correctly!");
+			}
+		}
+		
+		
+	</script>
+	 </head>
+	<body> 
+	<h1 id="title"> Write all about your trip :)</h1>
+	<div id="form" class="form">
+	
+	<form action="javascript:generatePDF();" id="myForm" method="get">
+	
+  <input type="text" id = "dest" name="destination" placeholder="Destination" maxlength="75"required><br>
+  <label for="from" id="fromLabel">From:</label>
+  <input type="date" id="from" name="from" required>
+  <label for="until" id="untilLabel">Until:</label>
+  <input type="date" id="until" name="until" required><br>
+  <input type="text" id="transport" name="transp" placeholder="Transportation" maxlength="50" required><br>
+  <input type="text" id="attraction" name="attraction" placeholder="Best tourist attraction" maxlength="50" required><br>
+  <input type="text" id="food" name="food" placeholder="Best local food" maxlength="50" required><br>
+  :( <input type="range" id="points" name="points" min="1" max="5" required> :) <br>
+
+  <input type="button" id ="takePhoto" onclick="openModal()" value="Take photo"> 
+  
+  <label for="upload" id="customUpload">Upload photo
+  <input type="file" onchange="previewUpload()" id="upload" name="upload" accept="image/*">
+  </label><br>
+
+  <input type="submit" id="generatePDF" value="Generate PDF">
+</form>
+
+<textarea name="tipps" id="tipps" form="myForm" placeholder="Your tipps and tricks..." cols="35" rows="5" maxlength="450"></textarea><br>
+<textarea name="story" id="story" form="myForm"placeholder="Share a funny story..." cols="35" rows="10" maxlength="450"></textarea>
+
+</div>
+
+
+  <div id= "pics" class="pics"> 
+  <img id="pic1" height="60" width="60">
+  <img id="pic2" height = "60" width="60">
+  <img id="pic3" height = "60" width="60">
+  </div>
+	
+	
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+	
+	<div id="photoModal">
+	<video id="video" width="500" height="350" autoplay></video>
+	<button id="snap" style="display: none">Snap Photo</button>
+	<canvas id="canvas" style="display: none; position: relative; right: -500px; top: -370px;" width="500" height="350" ></canvas>
+    </div>
+	
+	<div id="question" style="display: none; position: relative; top: -300px;">
+    <p>Do you like this photo?</p>
+	<button id="yes">Yes, keep it.</button>
+	<button id="no">No, discard it. </button>
+  </div>
+  </div>
+
+</div>
+</body>
+</html>
