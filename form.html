@@ -120,7 +120,7 @@ function takePhoto(position){
 		snap.style.display="block";
 		// Trigger photo take
 		snap.addEventListener("click", function() {
-		canvas.style.display = "block";	
+		canvas.style.display = "block";
 		
 		context.drawImage(video, 0, 0, canvas.width, canvas.height);
 		context.strokeText(position.coords.latitude, 10, 10);
@@ -245,7 +245,7 @@ var vid = document.getElementById('video');
     <span class="close">&times;</span>
 	
 	<div id="photoModal">
-	<video id="video" width="50%" height="60%" autoplay></video>
+	<video id="video" width="500" height="350" autoplay></video>
 	<button id="snap" style="display: none">Snap Photo</button>
 	<canvas id="canvas" style="display: none"></canvas>
     </div>

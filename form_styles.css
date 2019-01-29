@@ -65,6 +65,8 @@ body {
 #video {
 	position:relative;
 	bottom: -30px;
+	width: 40%;
+	height: 60%
 }
 #canvas {
 	border: 3px dotted #083d77;
@@ -72,6 +74,8 @@ body {
 	position: relative; 
 	right: -500px; 
 	top: -370px;
+	width: 40%;
+	height: 60%
 }
 
 #question {
