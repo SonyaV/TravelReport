@@ -40,6 +40,7 @@ body {
   height:90%;
   position: center;
   font-family: 'Major Mono Display', monospace;
+  max-height: 500px;
 }
 
 #snap {
