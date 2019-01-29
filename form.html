@@ -209,6 +209,7 @@ var vid = document.getElementById('video');
   <input type="text" id="transport" name="transp" placeholder="Transportation" maxlength="50" required><br>
   <input type="text" id="attraction" name="attraction" placeholder="Best tourist attraction" maxlength="50" required><br>
   <input type="text" id="food" name="food" placeholder="Best local food" maxlength="50" required><br>
+  Rate your trip(1-5): <br>
   :( <input type="range" id="points" name="points" min="1" max="5" required> :) <br>
 
   <input type="button" id ="takePhoto" onclick="openModal()" value="Take photo"> 
@@ -245,10 +246,10 @@ var vid = document.getElementById('video');
 	<div id="photoModal">
 	<video id="video" width="500" height="350" autoplay></video>
 	<button id="snap" style="display: none">Snap Photo</button>
-	<canvas id="canvas" style="display: none; position: relative; right: -500px; top: -370px;" width="500" height="350" ></canvas>
+	<canvas id="canvas" style="display: none" width="500" height="350" ></canvas>
     </div>
 	
-	<div id="question" style="display: none; position: relative; top: -300px;">
+	<div id="question" style="display: none">
     <p>Do you like this photo?</p>
 	<button id="yes">Yes, keep it.</button>
 	<button id="no">No, discard it. </button>
