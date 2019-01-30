@@ -170,7 +170,8 @@ var vid = document.getElementById('video');
 		function generatePDF(){
 		
 		var plat = getPlatformType();
-		document.getElementById('test').innerHTML = plat;
+		document.getElementById('test').innerHTML = plat.value;
+		
 		if(plat.toString() == 'Desktop'){
 		
 			var doc = new jsPDF();
