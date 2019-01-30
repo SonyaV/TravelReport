@@ -172,7 +172,41 @@ var vid = document.getElementById('video');
 		var plat = getPlatformType();
 		document.getElementById('test').innerHTML = plat;
 		
+		if(plat == 'Desktop'){
 		
+			var doc = new jsPDF();
+			var dest= document.getElementById('dest').value;
+			var fromDate = new Date();
+			fromDate = document.getElementById('from').value;
+			var untilDate = new Date();
+			untilDate = document.getElementById('until').value;
+			
+			if(untilDate > fromDate){
+			
+			doc.text(10,10,dest);
+			doc.text(10,20, fromDate);
+			doc.text(10,30,untilDate);
+			doc.text(10,40, document.getElementById('transport').value);
+			doc.text(10,50, document.getElementById('attraction').value);
+			doc.text(10,60, document.getElementById('food').value);
+			doc.text(10,70, document.getElementById('tipps').value);
+			doc.text(10,80, document.getElementById('story').value);
+			doc.text(10,90, document.getElementById('points').value);
+			doc.addImage(document.getElementById('pic1'), 'JPEG', 20,20);
+			doc.addImage(document.getElementById('pic2'), 'JPEG', 20, 30);
+			doc.addImage(document.getElementById('pic3'), 'JPEG', 20, 40);
+			
+			
+			var pdfName = dest + "_TravelReport";
+			doc.save(pdfName);
+			}
+			else{
+			alert("Please specify the dates correctly!");
+			}
+			}
+			else{ 
+			window.location.href = 'pdfMobile.html'
+			}
 			}
 		
 		
