@@ -123,9 +123,12 @@ function takePhoto(position){
 		snap.addEventListener("click", function() {
 		canvas.style.display = "block";
 		
+		var x = position.coords.latitude.toString();
+		var y = position.coords.longitude.toString();
+		
 		context.drawImage(video, 0, 0, canvas.width, canvas.height);
-		context.strokeText(position.coords.latitude, 10, 10);
-		context.strokeText(position.coords.longitude, 10, 20);
+		context.strokeText(x.substring(0, 10), 10, 10);
+		context.strokeText(y.substring(0, 10), 10, 20);
 		question.style.display = "block";
 		});
 		
@@ -165,6 +168,11 @@ var vid = document.getElementById('video');
 }
 		
 		function generatePDF(){
+		
+		var plat = getPlatformType();
+		document.getElementById('test').innerHTML = plat;
+		if(plat.toString() == 'Desktop'){
+		
 			var doc = new jsPDF();
 			var dest= document.getElementById('dest').value;
 			var fromDate = new Date();
@@ -184,6 +192,8 @@ var vid = document.getElementById('video');
 			doc.text(10,80, document.getElementById('story').value);
 			doc.text(10,90, document.getElementById('points').value);
 			doc.addImage(document.getElementById('pic1'), 'JPEG', 20,20);
+			doc.addImage(document.getElementById('pic2'), 'JPEG', 20, 30);
+			doc.addImage(document.getElementById('pic3'), 'JPEG', 20, 40);
 			
 			
 			var pdfName = dest + "_TravelReport";
@@ -192,12 +202,27 @@ var vid = document.getElementById('video');
 			else{
 			alert("Please specify the dates correctly!");
 			}
-		}
+			}
+			else{ 
+			window.location.href = "pdfMobile.html";
+			}
+			}
 		
+		
+		function getPlatformType() {
+	if(navigator.userAgent.match(/mobile/i)) {
+		return 'Mobile';
+	} else if (navigator.userAgent.match(/iPad|Android|Touch/i)) {
+		return 'Tablet';
+	} else {
+		return 'Desktop';
+	}
+}
 		
 	</script>
 	 </head>
 	<body> <br>
+	<p id="test"></p>
 	<div id="form" class="form">
 	
 	<form action="javascript:generatePDF();" id="myForm" method="get">
