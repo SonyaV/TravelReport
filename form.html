@@ -172,8 +172,13 @@ var vid = document.getElementById('video');
 		var plat = getPlatformType();
 		document.getElementById('test').innerHTML = plat;
 		
-		if(plat == 'Desktop'){
+		if(plat == 'Mobile'){
 		
+			window.location.href = 'pdfMobile.html'
+			
+			}
+			
+			else{ 
 			var doc = new jsPDF();
 			var dest= document.getElementById('dest').value;
 			var fromDate = new Date();
@@ -203,9 +208,6 @@ var vid = document.getElementById('video');
 			else{
 			alert("Please specify the dates correctly!");
 			}
-			}
-			else{ 
-			window.location.href = 'pdfMobile.html'
 			}
 			}
 		
