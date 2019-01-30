@@ -32,6 +32,7 @@ vidOff();
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
+  vidOff();
     modal.style.display = "none";
   }
 }
@@ -241,20 +242,18 @@ var vid = document.getElementById('video');
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+  
+  <div class="grid-container">
     <span class="close">&times;</span>
-	
-	<div id="photoModal">
-	<video id="video" width="500" height="350" autoplay></video>
-	<button id="snap" style="display: none">Snap Photo</button>
-	<canvas id="canvas" style="display: none"></canvas>
-    </div>
-	
-	<div id="question" style="display: none">
+	<div class="video"><video id="video" autoplay></video></div>
+	<div  class="canvas"><canvas id="canvas" style="display: none"></canvas></div>
+	<div class="snap"><button id="snap" style="display: none">Snap Photo</button></div>
+	<div class="question" id="question" style="display: none">
     <p>Do you like this photo?</p>
 	<button id="yes">Yes, keep it.</button>
 	<button id="no">No, discard it. </button>
-  </div>
+    </div>
+
   </div>
 
 </div>
