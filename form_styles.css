@@ -5,7 +5,6 @@
 body {
   background-image: url("static/background_form.png"); /* The image used */
   background-color: #EBEBD3; /* Used if the image is unavailable */
-  /*height: 450px; /* You must set a specified height */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
@@ -157,6 +156,7 @@ input[type="text"]
 	border-radius: 7.5px;
 	border: 2px solid #083d77;
 	margin-bottom: 15px;
+	
 }
 input[type="date"] {
 	font-family: 'Major Mono Display', monospace;
