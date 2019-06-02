@@ -117,6 +117,15 @@ function takePhoto(position){
 		
 		// Elements for taking the snapshot
 		var canvas = document.getElementById('canvas');
+		var platformType = getPlatformType();
+		if (platformType == 'Mobile'){
+			canvas.width = 100;
+			canvas.height = 100;
+		}
+		else if (platformType == 'Desktop'){
+			canvas.width = 340;
+			canvas.height = 280;
+		}
 		var context = canvas.getContext('2d');
 		var video = document.getElementById('video');
 		var question = document.getElementById('question');
@@ -259,6 +268,8 @@ var vid = document.getElementById('video');
 		return 'Desktop';
 	}
 }
+
+
 		
 	</script>
 	 </head>
