@@ -36,7 +36,7 @@ body {
   font-family: 'Major Mono Display', monospace;
   
   display: grid;
-  grid-template-columns: 9% 40% 40% 9%;
+  grid-template-columns: 50% 50%;
   grid-template-rows: 9% 60% 20% 9%;
   column-gap: 15px;
   justify-items: center;
@@ -44,14 +44,17 @@ body {
 }
 
 .close {
-	grid-column: 4/5;
-	grid-row: 1/2;
-	/*margin-left: 1500pt;*/
+	grid-column: 2/3;
+	grid-row: 1/2;	
+	margin-left: 80%;
+	color: #083d77;
+	font-size: 32px;
+	font-weight: bold;
 	
 }
 .snap {
 	text-align: center;
-	grid-column: 2/3;
+	grid-column: 1/2;
 	grid-row: 3/4;
 }
 #snap {
@@ -66,14 +69,14 @@ body {
 	font-family: inherit;
 	font-size: inherit;
 	grid-row: 3/4;
-	grid column: 2/3;
+	grid column: 1/2;
 }
 #snap:hover {
 	background: #a97cc1;
 }
 .video {
 	grid-row: 2/3;
-	grid-column: 2/3;
+	grid-column: 1/2;
 }
 #video {
 	max-width: 100%;    
@@ -82,7 +85,7 @@ body {
 .canvas {
 	border: 3px dotted #083d77;
 	padding: 10px;
-	grid-column: 3/4;
+	grid-column: 2/3;
 	grid-row: 2/3;
 	max-height:100%;
 	max-width:100%;
@@ -96,7 +99,7 @@ body {
 	/*position: relative;
 	top: -300px;*/
 	text-align: center;
-	grid-column: 3/4;
+	grid-column: 2/3;
 	grid-row: 3/4;
 }
 #yes {
@@ -124,10 +127,7 @@ body {
 
 /* The Close Button */
 .close {
-  color: #083d77;
-  float: right;
-  font-size: 32px;
-  font-weight: bold;
+  
 }
 
 .close:hover,

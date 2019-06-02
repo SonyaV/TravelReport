@@ -119,12 +119,12 @@ function takePhoto(position){
 		var canvas = document.getElementById('canvas');
 		var platformType = getPlatformType();
 		if (platformType == 'Mobile'){
-			canvas.width = 130;
-			canvas.height = 200;
+			canvas.width = 150;
+			canvas.height = 210;
 					
 		}
 		else if (platformType == 'Desktop'){
-			canvas.width = 340;
+			canvas.width = 300;
 			canvas.height = 280;
 		}
 		var context = canvas.getContext('2d');
