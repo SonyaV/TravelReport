@@ -14,7 +14,7 @@ body {
 
 
 a:link, a:visited {
-  background-color: transparent;
+  background-color: #EBEBD3;
   color: #083D77;
   padding: 14px 25px;
   text-align: center;
@@ -24,6 +24,7 @@ a:link, a:visited {
   font-family: 'Major Mono Display', monospace;
   border-style: solid;
   border-width: 5px;
+  box-shadow: 4px 4px black;
 }
 
 

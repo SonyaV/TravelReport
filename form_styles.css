@@ -36,9 +36,9 @@ body {
   font-family: 'Major Mono Display', monospace;
   
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 49% 49%;
   grid-template-rows: 9% 60% 20% 9%;
-  column-gap: 15px;
+  column-gap: 5px;
   justify-items: center;
   align-items: center;
 }
@@ -46,7 +46,7 @@ body {
 .close {
 	grid-column: 2/3;
 	grid-row: 1/2;	
-	margin-left: 80%;
+	margin-left: 70%;
 	color: #083d77;
 	font-size: 32px;
 	font-weight: bold;
