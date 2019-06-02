@@ -27,18 +27,18 @@ body {
 /* Modal Content/Box */
 .grid-container {
   background-color: #ffc145;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 5%;
+  margin: 2% auto;  /* 15% from the top and centered */
+  padding: 2%;
   border: 3px solid #ebebd3;
   width: 80%; 
-  height:90%;
+  height:80%;
   position: center;
   font-family: 'Major Mono Display', monospace;
   
   display: grid;
-  grid-template-columns: 7.5% 40% 40% 7.5%;
-  grid-template-rows: 7.5% 60% 20% 7.5%;
-  grid-gap: 15px;
+  grid-template-columns: 9% 40% 40% 9%;
+  grid-template-rows: 9% 60% 20% 9%;
+  column-gap: 15px;
   justify-items: center;
   align-items: center;
 }
@@ -46,7 +46,8 @@ body {
 .close {
 	grid-column: 4/5;
 	grid-row: 1/2;
-	text-align: left;
+	/*margin-left: 1500pt;*/
+	
 }
 .snap {
 	text-align: center;
