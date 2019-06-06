@@ -31,8 +31,9 @@ span.onclick = function() {
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
   if (event.target == modal) {
+  modal.style.display = "none";
   vidOff();
-    modal.style.display = "none";
+   
   }
 }
 }
@@ -107,19 +108,21 @@ function takePhoto(position){
 		var video = document.getElementById('video');
 
 		// Get access to the camera!
-		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {			
 		// Not adding `{ audio: true }` since we only want video now
 		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
 		localstream = stream;
         video.play();
-		});
-		}
-		else {
-			var modal = document.getElementById('myModal');
-			modal.style.display = 'none';
-		}
+		})
+		.catch(function(){
+		var modal = document.getElementById('myModal');
+				modal.style.display = 'none';
+		
+		})
+			;
+		}		
 		
 		// Elements for taking the snapshot
 		var canvas = document.getElementById('canvas');
@@ -185,9 +188,11 @@ function takePhoto(position){
 		
 function vidOff() {
 var vid = document.getElementById('video');
+if (!vid.paused){
   vid.pause();
   vid.src = "";
   localstream.getTracks()[0].stop();
+}
 }
 		
 		function download(){
@@ -206,11 +211,11 @@ var vid = document.getElementById('video');
 				
 				var dest = document.getElementById('dest').value;
 				
-				var fromDate = new Date();
-				fromDate = document.getElementById('from').value;
+				var fromDate = new Date(document.getElementById('from').value);
+				var fromDateF = formatDate(fromDate);
 				
-				var untilDate = new Date();
-				untilDate = document.getElementById('until').value;
+				var untilDate = new Date(document.getElementById('until').value);
+				var untilDateF = formatDate(untilDate);
 				
 				var transp = document.getElementById('transport').value;
 				var transpLines = transp.split(",");
@@ -257,8 +262,8 @@ var vid = document.getElementById('video');
 						contextDl.fillText(dest,422,70);
 						
 						contextDl.font = '16px verdana';
-						contextDl.fillText(fromDate, 140, 140);
-						contextDl.fillText(untilDate, 140, 160);
+						contextDl.fillText(fromDateF, 160, 140);
+						contextDl.fillText(untilDateF, 160, 160);
 						
 						var lineCounter1 = 140;
 						for(var i=0; i < transpLines.length; i++){
@@ -333,7 +338,36 @@ function getLines(ctx, text, maxWidth) {
     return lines;
 }
 
-
+function formatDate(date){
+	var year = date.getFullYear();
+	var monthOld = date.getMonth();
+	var dayOld = date.getDate();
+	var month;
+	var day;
+	
+	switch(monthOld){
+		case 1: month = 'January'; break;
+		case 2: month = 'February'; break;
+		case 3: month = 'March'; break;
+		case 4: month = 'April'; break;
+		case 5: month = 'May'; break;
+		case 6: month = 'June'; break;
+		case 7: month = 'July'; break;
+		case 8: month = 'August'; break;
+		case 9: month = 'September'; break;
+		case 10: month = 'October'; break;
+		case 11: month = 'November'; break;
+		case 12: month = 'December'; break;
+	}
+	
+	switch(dayOld){
+		case 1 || 21 || 31: day = dayOld + "st";
+		case 2 || 22: day = dayOld + "nd";
+		case 3 || 23: day = dayOld + "rd";
+		default: day = dayOld + "th";
+	}
+	return day + " " + month + " " + year;
+}
 	
 
 		

@@ -3,14 +3,42 @@
 <head>
     <title>Html to Multi Page PDF using jsPDF</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
     <link rel="stylesheet" href="index_styles.css">
 	<link href='https://fonts.google.com/?selection.family=Major+Mono+Display' rel='stylesheet' type='text/css'>
+	
+	
+	
  </head>
 <body>
+
 <div id = "create-diary-container">
   <a href="form.html" id="create-diary">CREATE YOUR TRAVEL REPORT</a>
   </div>
+  
+  <script type="text/javascript">
+	
+	function getPlatformType() {
+	if(navigator.userAgent.match(/mobile/i)) {
+		return 'Mobile';
+	} else if (navigator.userAgent.match(/iPad|Android|Touch/i)) {
+		return 'Tablet';
+	} else {
+		return 'Desktop';
+	}
+	}
+	
+		var platform = getPlatformType();
+		
+		if (platform == 'Mobile'){
+		document.body.style.backgroundImage = "url('static/background_mobile.png')";
+		}
+		else if (platform == 'Desktop'){
+		document.body.style.backgroundImage = "url('static/background.png')";
+		}
+	
+	
+		
+	</script>
 </body>
 </html>
