@@ -164,9 +164,16 @@ function takePhoto(position){
 		setTimeout(function(){ var city = document.getElementById('city').value;
 		console.log(city);
 		context.textAlign = 'center';
+		
+		if (platformType == 'Mobile'){
 		context.font = '14px verdana';
-		context.strokeText(city, 100, 100);
-		}, 5000);
+		context.strokeText(city, 20, 190);
+		}
+		else {
+		context.font = '14px verdana';
+		context.strokeText(city, 270, 260);
+		}	
+		}, 2000);
 				 
 		
 		context.drawImage(video, 0, 0, canvas.width, canvas.height);
