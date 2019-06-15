@@ -162,10 +162,11 @@ function takePhoto(position){
 		
 		search(x,y); 
 		setTimeout(function(){ var city = document.getElementById('city').value;
+		console.log(city);
 		context.textAlign = 'center';
 		context.font = '14px verdana';
 		context.strokeText(city, 270, 260);
-		}, 5000);
+		}, 6000);
 				 
 		
 		context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -426,7 +427,7 @@ function formatDate(date){
   <input type="file" onchange="previewUpload()" id="upload" name="upload" accept="image/*">
   </label><br>
 
-  <input type="submit" id="generatePDF" value="Generate PDF">
+  <input type="submit" id="generatePDF" value="Generate travel card">
 </form>
 
 <textarea name="tipps" id="tipps" form="myForm" placeholder="Your tipps and tricks..." cols="35" rows="5" maxlength="180"></textarea><br>
