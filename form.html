@@ -89,11 +89,9 @@ return new Promise((resolve,reject) => {
 }
 window.cb = function  cb(json) {
 			document.getElementById('city').value = json.address.road+ " " + json.address.postcode + ',' + json.address.city;
-			document.getElementById('test').innerHTML = 'IDKDKDKKDDK';
 }
 
 window.search =  function search(x,y) {
-	document.getElementById('test').innerHTML = 'IDKDKDKKDDK';
     var s = document.createElement('script');       
     s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat=' + x + '&lon=' + y + '&addressdetails=1&accept-language=en-US';
     document.getElementsByTagName('head')[0].appendChild(s);
@@ -139,7 +137,7 @@ function takePhoto(position){
 		var canvas = document.getElementById('canvas');
 		var platformType = getPlatformType();
 		if (platformType == 'Mobile'){
-			canvas.width = 130;
+			canvas.width = 150;
 			canvas.height = 210;
 					
 		}
@@ -168,7 +166,7 @@ function takePhoto(position){
 		context.font = '14px verdana';
 		context.strokeText(city, 270, 260);
 		console.log("donedone"); 
-		}, 10000);
+		}, 2000);
 				 
 		
 		context.drawImage(video, 0, 0, canvas.width, canvas.height);
