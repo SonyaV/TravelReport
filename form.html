@@ -93,7 +93,7 @@ window.cb = function  cb(json) {
 
 window.search =  function search(x,y) {
     var s = document.createElement('script');       
-    s.src = 'http://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat=' + x + '&lon=' + y + '&addressdetails=1&accept-language=en-US';
+    s.src = 'https://nominatim.openstreetmap.org/reverse?json_callback=cb&format=json&lat=' + x + '&lon=' + y + '&addressdetails=1&accept-language=en-US';
     document.getElementsByTagName('head')[0].appendChild(s);
 
 };
@@ -165,7 +165,6 @@ function takePhoto(position){
 		context.textAlign = 'center';
 		context.font = '14px verdana';
 		context.strokeText(city, 270, 260);
-		console.log("donedone"); 
 		}, 2000);
 				 
 		
