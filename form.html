@@ -125,7 +125,7 @@ function gotSources(sourceInfos) {
     option.value = sourceInfo.deviceId;
     if (sourceInfo.kind === 'videoinput') {
       option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-	  console.log(sourceInfo.deviceId);
+	  console.log(sourceInfo.label);
     } else {
       console.log('Some other kind of source: ', sourceInfo);
     }
