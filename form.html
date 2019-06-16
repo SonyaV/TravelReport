@@ -113,6 +113,32 @@ function takePhotoAndLoc(){
 })
 
 }
+var videoSelect = document.querySelector('select#videoSource');
+
+function gotSources(sourceInfos) {
+  for (var i = 0; i !== sourceInfos.length; ++i) {
+    var sourceInfo = sourceInfos[i];
+    var option = document.createElement('option');
+    option.value = sourceInfo.deviceId;
+    if (sourceInfo.kind === 'videoinput') {
+      option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
+	  console.log(sourceInfo.deviceId);
+    } else {
+      console.log('Some other kind of source: ', sourceInfo);
+    }
+  }
+}
+
+if (typeof MediaStreamTrack === 'undefined' ||
+    typeof MediaStreamTrack.getSources === 'undefined') {
+  alert('This browser does not support MediaStreamTrack.getSources().');
+} else {
+  navigator.mediaDevices.enumerateDevices().then(function(e) {
+    gotSources(e);
+  });
+}
+//videoSelect.onchange = start;
+
 function takePhoto(position){
 		// Grab elements, create settings, etc.
 		var video = document.getElementById('video');
@@ -120,6 +146,15 @@ function takePhoto(position){
 		// Get access to the camera!
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {			
 		// Not adding `{ audio: true }` since we only want video now
+		var videoSource = videoSelect.value;
+
+  var constraints = {
+    video: {
+      optional: [{
+        sourceId: videoSource
+      }]
+    }
+  };
 		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
@@ -166,7 +201,7 @@ function takePhoto(position){
 		context.textAlign = 'center';
 		
 		if (platformType == 'Mobile'){
-		context.font = '10px verdana';
+		context.font = '8px verdana';
 		context.strokeText(city, 60, 190);
 		}
 		else {
@@ -461,6 +496,7 @@ function formatDate(date){
 	<div class="video"><video id="video" autoplay></video></div>
 	<div  class="canvas"><canvas id="canvas" style="display: none"></canvas></div>
 	<div class="snap"><button id="snap" style="display: none">Snap Photo</button></div>
+	<div class="switch"><button id="switch" style="display: none">Switch Camera</button></div>
 	<div class="question" id="question" style="display: none">
     <p>Do you like this photo?</p>
 	<button id="yes">Yes, keep it.</button>
