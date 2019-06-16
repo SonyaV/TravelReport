@@ -114,51 +114,39 @@ function takePhotoAndLoc(){
 })
 
 }
-var videoSelect = document.createElement('option');
-navigator.getUserMedia = navigator.getUserMedia ||
-  navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+let flipBtn = document.querySelector('#flip-btn');
+let defaultsOpts = { audio: false, video: true }
+let shouldFaceUser = true;
 
-function gotSources(sourceInfos) {
-  for (var i = 0; i !== sourceInfos.length; ++i) {
-    var sourceInfo = sourceInfos[i];
-    var option = document.createElement('option');
-    option.value = sourceInfo.deviceId;
-    if (sourceInfo.kind === 'videoinput') {
-      option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-	  console.log(sourceInfo.deviceId);
-    } else {
-      console.log('Some other kind of source: ', sourceInfo);
-    }
-  }
+// check whether we can use facingMode
+let supports = navigator.mediaDevices.getSupportedConstraints();
+if( supports['facingMode'] === true ) {
+  flipBtn.disabled = false;
 }
 
-  navigator.mediaDevices.enumerateDevices().then(function(e) {
-    gotSources(e);
-  });
-  
-  
+let stream = null;
 
-//videoSelect.onchange = start;
+flipBtn.addEventListener('click', function(){
+  if( stream == null ) return
+  // we need to flip, stop everything
+  stream.getTracks().forEach(t => {
+    t.stop();
+  });
+  // toggle / flip
+  shouldFaceUser = !shouldFaceUser;
+})
 
 function takePhoto(position){
 		// Grab elements, create settings, etc.
 		var video = document.getElementById('video');
-
+defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' };
 		// Get access to the camera!
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {			
 		// Not adding `{ audio: true }` since we only want video now
-		
-		var videoSource =  'b6a1c75c3be11e8852478b6e141ab14b01c4d95fa623135f345607b20e981394';
+		//var videoSource = 'b1b602a14f741450f12959d5b58cab89dbaa8c00fd1b2fedcda461def02c8f5f';
 
-/*   var constraints = {
-    video: {
-      optional: [{
-        sourceId: b1b602a14f741450f12959d5b58cab89dbaa8c00fd1b2fedcda461def02c8f5f
-      }]
-    }
-  }; */
-  //b6a1c75c3be11e8852478b6e141ab14b01c4d95fa623135f345607b20e981394
-		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+ 
+		navigator.mediaDevices.getUserMedia(defaultsOpts).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
 		localstream = stream;
@@ -499,7 +487,9 @@ function formatDate(date){
 	<div class="video"><video id="video" autoplay></video></div>
 	<div  class="canvas"><canvas id="canvas" style="display: none"></canvas></div>
 	<div class="snap"><button id="snap" style="display: none">Snap Photo</button></div>
-	<div class="switch"><button id="switch" style="display: none">Switch Camera</button></div>
+	<button disabled id="flip-btn" style="display: none">
+      Flip Camera
+    </button>
 	<div class="question" id="question" style="display: none">
     <p>Do you like this photo?</p>
 	<button id="yes">Yes, keep it.</button>
