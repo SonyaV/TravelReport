@@ -99,6 +99,7 @@ window.search =  function search(x,y) {
 
 };
 
+
 function takePhotoAndLoc(){
 
 (async function()  {
@@ -112,41 +113,18 @@ function takePhotoAndLoc(){
 }).catch((err) => {
     console.error(err);
 })
-
-}
-let flipBtn = document.getElementById('flip-btn');
-let defaultsOpts = { audio: false, video: true }
-let shouldFaceUser = true;
-
-// check whether we can use facingMode
-let supports = navigator.mediaDevices.getSupportedConstraints();
-if( supports['facingMode'] === true ) {
-  flipBtn.disabled = false;
 }
 
-let stream = null;
 
-flipBtn.addEventListener('click', function(){
-  if( stream == null ) return
-  // we need to flip, stop everything
-  stream.getTracks().forEach(t => {
-    t.stop();
-  });
-  // toggle / flip
-  shouldFaceUser = !shouldFaceUser;
-})
 
 function takePhoto(position){
 		// Grab elements, create settings, etc.
 		var video = document.getElementById('video');
-defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' };
 		// Get access to the camera!
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {			
 		// Not adding `{ audio: true }` since we only want video now
-		//var videoSource = 'b1b602a14f741450f12959d5b58cab89dbaa8c00fd1b2fedcda461def02c8f5f';
 
- 
-		navigator.mediaDevices.getUserMedia(defaultsOpts).then(function(stream) {
+		navigator.mediaDevices.getUserMedia({video:true}).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
 		localstream = stream;
@@ -178,7 +156,6 @@ defaultsOpts.video = { facingMode: shouldFaceUser ? 'user' : 'environment' };
 		
 		context.clearRect(0, 0, canvas.width, canvas.height);
 		canvas.style.display ="block";
-		flipBtn.style.display = "block";
 		snap.style.display="block";
 		// Trigger photo take
 		snap.addEventListener("click", function() {
@@ -428,12 +405,7 @@ function formatDate(date){
 		return 'Desktop';
 	}
 }
-
-
-
-
-
-		
+	
 	</script>
 	 </head>
 	<body> <br>
@@ -488,9 +460,7 @@ function formatDate(date){
 	<div class="video"><video id="video" autoplay></video></div>
 	<div  class="canvas"><canvas id="canvas" style="display: none"></canvas></div>
 	<div class="snap"><button id="snap" style="display: none">Snap Photo</button></div>
-	<button disabled id="flip-btn" style="display: none">
-      Flip Camera
-    </button>
+	<div class="flip-btn"><button id="flip-btn" style="display: none" disabled> Flip Camera</button></div>
 	<div class="question" id="question" style="display: none">
     <p>Do you like this photo?</p>
 	<button id="yes">Yes, keep it.</button>
