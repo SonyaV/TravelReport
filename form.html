@@ -150,10 +150,11 @@ function takePhoto(position){
   var constraints = {
     video: {
       optional: [{
-        sourceId: videoSource
+        sourceId: 'b1b602a14f741450f12959d5b58cab89dbaa8c00fd1b2fedcda461def02c8f5f' 
       }]
     }
   };
+  //b6a1c75c3be11e8852478b6e141ab14b01c4d95fa623135f345607b20e981394
 		navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
         //video.src = window.URL.createObjectURL(stream);
         video.srcObject = stream;
