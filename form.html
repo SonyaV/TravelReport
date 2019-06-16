@@ -114,7 +114,7 @@ function takePhotoAndLoc(){
 })
 
 }
-var videoSelect = document.querySelector('select#videoSource');
+var videoSelect = document.createElement('option');
 navigator.getUserMedia = navigator.getUserMedia ||
   navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
@@ -125,7 +125,7 @@ function gotSources(sourceInfos) {
     option.value = sourceInfo.deviceId;
     if (sourceInfo.kind === 'videoinput') {
       option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-	  console.log(sourceInfo.label);
+	  console.log(sourceInfo.deviceId);
     } else {
       console.log('Some other kind of source: ', sourceInfo);
     }
@@ -135,6 +135,8 @@ function gotSources(sourceInfos) {
   navigator.mediaDevices.enumerateDevices().then(function(e) {
     gotSources(e);
   });
+  
+  
 
 //videoSelect.onchange = start;
 
@@ -145,6 +147,7 @@ function takePhoto(position){
 		// Get access to the camera!
 		if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {			
 		// Not adding `{ audio: true }` since we only want video now
+		
 		var videoSource =  'b6a1c75c3be11e8852478b6e141ab14b01c4d95fa623135f345607b20e981394';
 
 /*   var constraints = {
